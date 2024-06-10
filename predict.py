@@ -7,7 +7,7 @@ import torch
 import torchvision.transforms as transforms
 from cog import BasePredictor, Path, Input
 
-from datasets.augmentations import AgeTransformer
+from age_datasets.augmentations import AgeTransformer
 from models.psp import pSp
 from scripts.align_all_parallel import align_face
 from utils.common import tensor2im

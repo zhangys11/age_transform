@@ -1,3 +1,30 @@
+# img2img age transformation via GAN 
+## Quickstart on Windows
+
+1. Run VS 2019/2015 Command Tools with Admin Privillege. 
+```
+Visual Studio 2019 Developer Command Prompt v16.11.32
+[vcvarsall.bat] Environment initialized for: 'x64'
+```
+If VS version is incorrect, you will encounter `fatal error C1189: #error:  -- unsupported Microsoft Visual Studio version! Only the versions between 2017 and 2022 (inclusive) are supported!`.
+
+2. CD to the SAM folder. Make sure "where cl" returns no problem.
+```
+SAM>where cl
+C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.29.30133\bin\Hostx64\x64\cl.exe
+```
+
+3. Put your image under /notebooks/images. Run command: 
+```
+> python scripts/inference.py --exp_dir=experiment --checkpoint_path=pretrained_models/sam_ffhq_aging.pt --data_path=notebooks/images --test_batch_size=4 --test_workers=4 --couple_outputs --target_age=0,10,20,30,40,50,60,70,80
+
+Loading SAM from checkpoint: pretrained_models/sam_ffhq_aging.pt
+Loading dataset for ffhq_aging
+```
+
+4. To re-run, you may need to remove all `__pycache__` folders.
+
+
 # Only a Matter of Style: Age Transformation Using a Style-Based Regression Model (SIGGRAPH 2021)
 
 > The  task of age transformation illustrates the change of an individual's appearance over time. Accurately modeling this complex transformation over an input facial image is extremely challenging as it requires making convincing and possibly large changes to facial features and head shape, while still preserving the input identity. In this work, we present an image-to-image translation method that learns to directly encode real facial images into the latent space of a pre-trained unconditional GAN (e.g., StyleGAN) subject to a given aging shift. We employ a pre-trained age regression network used to explicitly guide the encoder to generate the latent codes corresponding to the desired age. In this formulation, our method approaches the continuous aging process as a regression task between the input age and desired target age, providing fine-grained control on the generated image. Moreover, unlike other approaches that operate solely in the latent space using a prior on the path controlling age, our method learns a more disentangled, non-linear path. We demonstrate that the end-to-end nature of our approach, coupled with the rich semantic latent space of StyleGAN, allows for further editing of the generated images. Qualitative and quantitative evaluations show the advantages of our method compared to state-of-the-art approaches.
@@ -52,7 +79,7 @@ allows modeling fine-grained age transformation using a single input facial imag
 
 ## Getting Started
 ### Prerequisites
-- Linux or macOS
+- Linux or macOS. Windows. 
 - NVIDIA GPU + CUDA CuDNN (CPU may be possible with some modifications, but is not inherently supported)
 - Python 3
 
@@ -186,6 +213,10 @@ python scripts/inference.py \
 --couple_outputs
 --target_age=0,10,20,30,40,50,60,70,80
 ```
+
+```python scripts/inference.py --exp_dir=experiment --checkpoint_path=pretrained_models/sam_ffhq_aging.pt --data_path=notebooks/images --test_batch_size=4 --test_workers=4 --couple_outputs --target_age=0,10,20,30,40,50,60,70,80
+```
+
 Additional notes to consider: 
 - During inference, the options used during training are loaded from the saved checkpoint and are then updated using the 
 test options passed to the inference script.

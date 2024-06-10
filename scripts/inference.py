@@ -7,13 +7,14 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
+from pathlib import Path
 import sys
-sys.path.append(".")
-sys.path.append("..")
+path_root = Path(__file__).parents[1]
+sys.path.append(str(path_root))
 
 from configs import data_configs
-from datasets.inference_dataset import InferenceDataset
-from datasets.augmentations import AgeTransformer
+from age_datasets.inference_dataset import InferenceDataset
+from age_datasets.augmentations import AgeTransformer
 from utils.common import tensor2im, log_image
 from options.test_options import TestOptions
 from models.psp import pSp

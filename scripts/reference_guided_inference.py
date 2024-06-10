@@ -11,8 +11,8 @@ sys.path.append(".")
 sys.path.append("..")
 
 from configs import data_configs
-from datasets.inference_dataset import InferenceDataset
-from datasets.augmentations import AgeTransformer
+from age_datasets.inference_dataset import InferenceDataset
+from age_datasets.augmentations import AgeTransformer
 from utils.common import log_image
 from options.test_options import TestOptions
 from models.psp import pSp
